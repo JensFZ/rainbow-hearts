@@ -66,6 +66,8 @@ git push origin v1.0.1
 
 Die Version muss bei jedem Tag höher sein als die zuletzt hochgeladene.
 
+Zum Testen der Einrichtung lässt sich der Workflow im Actions-Tab von Hand starten („Run workflow“). Er meldet sich dann nur an und zeigt den Status des Store-Eintrags, ohne etwas hochzuladen.
+
 #### Einmalige Einrichtung
 
 **1. Erste Version von Hand hochladen.** Die API kann nur bestehende Einträge aktualisieren.
