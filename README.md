@@ -87,6 +87,8 @@ Danach einmal von Hand einreichen. Die **Artikel-ID** (32 Buchstaben) steht beim
 **2. Google Cloud: Dienstkonto mit Anmeldung per GitHub.** Das kommt ganz ohne Passwort oder Schlüssel aus, denn GitHub Actions weist sich bei Google über OIDC aus. Ein Projekt in der [Cloud Console](https://console.cloud.google.com) anlegen, die [Cloud Shell](https://shell.cloud.google.com) öffnen und dort ausführen:
 
 ```bash
+gcloud config set project <PROJEKT-ID>   # ID aus: gcloud projects list
+
 REPO=JensFZ/rainbow-hearts
 PROJECT_ID=$(gcloud config get-value project)
 PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format='value(projectNumber)')
