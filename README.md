@@ -118,6 +118,14 @@ gh variable set GCP_WIF_PROVIDER --body "<Ausgabe aus Schritt 2>"
 gh variable set GCP_SERVICE_ACCOUNT --body "<Ausgabe aus Schritt 2>"
 ```
 
+### Store-Grafiken
+
+`store/assets.html` ist die Vorlage für Screenshot und Werbekacheln. `store/render-store.ps1` erzeugt daraus in `store/out/` das Händlersymbol (128 px), einen Screenshot (1280×800) und die kleine und große Werbekachel (440×280, 1400×560). Screenshot und Kacheln sind wie vom Store verlangt ohne Alpha-Kanal:
+
+```bash
+powershell -ExecutionPolicy Bypass -File .\store\render-store.ps1
+```
+
 ### Icon ändern
 
 `icon.svg` bearbeiten, dann die PNGs neu erzeugen (braucht Chrome und Python mit Pillow):
@@ -125,3 +133,7 @@ gh variable set GCP_SERVICE_ACCOUNT --body "<Ausgabe aus Schritt 2>"
 ```bash
 powershell -ExecutionPolicy Bypass -File .\render-icons.ps1
 ```
+
+## Lizenz
+
+[MIT](LICENSE)

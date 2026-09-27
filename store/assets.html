@@ -1,0 +1,89 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Store Assets</title>
+<!-- Vorlage für die Web-Store-Grafiken, gerendert von render-store.ps1 (?a=shot|small|marquee) -->
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: "Segoe UI", system-ui, sans-serif; color: #1f2430; overflow: hidden; }
+  section { display: none; background: linear-gradient(135deg, #fdf2f8, #eef2ff 55%, #ecfeff); }
+  .rh { height: 1em; vertical-align: -0.125em; margin: 0 .05em; }
+  h1 { font-weight: 700; letter-spacing: -.02em; }
+  .muted { color: #5b6272; }
+  .card { background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(30, 40, 80, .12); }
+  .msg { background: #f1f3f7; border-radius: 16px; padding: 10px 16px; width: fit-content; }
+  .msg.me { background: #dbeafe; margin-left: auto; }
+  .label { font-size: 15px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #8a90a0; }
+
+  /* Screenshot 1280×800 */
+  #shot { width: 1280px; height: 800px; padding: 0 72px; flex-direction: column; justify-content: center; }
+  #shot h1 { font-size: 52px; text-align: center; }
+  #shot > p { font-size: 24px; text-align: center; margin-top: 12px; }
+  #shot .cols { display: grid; grid-template-columns: 1fr 72px 1fr; align-items: center; margin-top: 48px; }
+  #shot .card { padding: 30px 32px; display: grid; gap: 18px; font-size: 26px; }
+  #shot .arrow { font-size: 48px; text-align: center; color: #8a90a0; }
+  #shot .popup { display: flex; justify-content: flex-end; align-items: center; gap: 14px; font-size: 18px; margin-top: 40px; }
+  #shot .popup .card { padding: 12px 18px; display: flex; gap: 10px; align-items: center; font-size: 17px; border-radius: 12px; }
+  #shot .check { width: 20px; height: 20px; border-radius: 4px; background: #2563eb; color: #fff; font-size: 14px; display: grid; place-items: center; }
+
+  /* Kleine Kachel 440×280 */
+  #small { width: 440px; height: 280px; place-items: center; text-align: center; }
+  #small img.logo { width: 110px; }
+  #small h1 { font-size: 34px; margin-top: 8px; }
+  #small p { font-size: 18px; margin-top: 4px; }
+
+  /* Große Kachel 1400×560 */
+  #marquee { width: 1400px; height: 560px; grid-template-columns: 1fr 1fr; align-items: center; padding: 0 110px; gap: 60px; }
+  #marquee img.logo { width: 150px; }
+  #marquee h1 { font-size: 64px; margin-top: 16px; }
+  #marquee .tag { font-size: 28px; margin-top: 10px; }
+  #marquee .card { padding: 34px; display: grid; gap: 18px; font-size: 28px; }
+</style>
+
+<section id="shot">
+  <h1>Blue hearts become rainbow hearts</h1>
+  <p class="muted">Works on every website, in feeds, comments and chats. Your own typing stays untouched.</p>
+  <div class="cols">
+    <div class="card">
+      <div class="label">Before</div>
+      <div class="msg">Happy Pride everyone! 💙</div>
+      <div class="msg me">Love you all 🩵💙</div>
+      <div class="msg">See you at the parade 💙</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="card">
+      <div class="label">With Rainbow Hearts</div>
+      <div class="msg">Happy Pride everyone! <img class="rh" src="../heart.svg" alt=""></div>
+      <div class="msg me">Love you all <img class="rh" src="../heart.svg" alt=""><img class="rh" src="../heart.svg" alt=""></div>
+      <div class="msg">See you at the parade <img class="rh" src="../heart.svg" alt=""></div>
+    </div>
+  </div>
+  <div class="popup">
+    <span class="muted">One click to switch on or off</span>
+    <div class="card"><img src="../icons/icon32.png" width="20" alt=""><span class="check">✓</span> Rainbow hearts</div>
+  </div>
+</section>
+
+<section id="small">
+  <div>
+    <img class="logo" src="../icon.svg" alt="">
+    <h1>Rainbow Hearts</h1>
+    <p class="muted">💙 → <img class="rh" src="../heart.svg" alt=""> on every website</p>
+  </div>
+</section>
+
+<section id="marquee">
+  <div>
+    <img class="logo" src="../icon.svg" alt="">
+    <h1>Rainbow Hearts</h1>
+    <p class="tag muted">Turns blue heart emoji into rainbow hearts, on every website.</p>
+  </div>
+  <div class="card">
+    <div class="msg">Happy Pride! 💙 → <img class="rh" src="../heart.svg" alt=""></div>
+    <div class="msg me">Love you all <img class="rh" src="../heart.svg" alt=""><img class="rh" src="../heart.svg" alt=""></div>
+  </div>
+</section>
+
+<script>
+  const a = new URLSearchParams(location.search).get('a') || 'shot';
+  document.getElementById(a).style.display = a === 'shot' ? 'flex' : 'grid';
+</script>
