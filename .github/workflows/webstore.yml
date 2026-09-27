@@ -1,0 +1,47 @@
+# Veröffentlicht die Erweiterung im Chrome Web Store, sobald ein Tag wie v1.2.3 gepusht wird.
+# Einrichtung: siehe README, Abschnitt "Veröffentlichen im Chrome Web Store".
+name: Chrome Web Store
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+  id-token: write # für die Anmeldung bei Google per Workload Identity Federation
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      ITEM: https://chromewebstore.googleapis.com/v2/publishers/${{ vars.CWS_PUBLISHER_ID }}/items/${{ vars.CWS_EXTENSION_ID }}
+      UPLOAD: https://chromewebstore.googleapis.com/upload/v2/publishers/${{ vars.CWS_PUBLISHER_ID }}/items/${{ vars.CWS_EXTENSION_ID }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Version aus dem Tag setzen und packen
+        run: |
+          jq --arg v "${GITHUB_REF_NAME#v}" '.version = $v' manifest.json > m.json && mv m.json manifest.json
+          zip -r extension.zip manifest.json content.js heart.svg popup.html popup.js icons
+
+      - uses: google-github-actions/auth@v2
+        id: auth
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
+          access_token_scopes: https://www.googleapis.com/auth/chromewebstore
+
+      - name: Hochladen und zur Prüfung einreichen
+        env:
+          TOKEN: ${{ steps.auth.outputs.access_token }}
+        run: |
+          api() { curl -sS --fail-with-body -H "Authorization: Bearer $TOKEN" "$@"; }
+          state=$(api -X POST -T extension.zip "$UPLOAD:upload" | tee /dev/stderr | jq -r .uploadState)
+          for _ in $(seq 30); do
+            [[ $state == *IN_PROGRESS ]] || break
+            sleep 10
+            state=$(api "$ITEM:fetchStatus" | tee /dev/stderr | jq -r .lastAsyncUploadState)
+          done
+          [[ $state == SUCCEEDED ]] || { echo "Upload fehlgeschlagen: $state"; exit 1; }
+          api -X POST "$ITEM:publish"
