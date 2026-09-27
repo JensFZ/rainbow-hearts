@@ -1,0 +1,17 @@
+<!-- Quelle für icons/*.png: Herz, diagonal (45°) geteilt, links blau, rechts Regenbogen -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <path id="h" d="M23.6 1.2c-3.4 0-6.3 2.7-7.6 5.6C14.7 3.9 11.8 1.2 8.4 1.2 3.8 1.2 0 5 0 9.6c0 9.4 9.5 11.9 16 21.2 6.1-9.3 16-12.1 16-21.2C32 5 28.2 1.2 23.6 1.2z"/>
+    <clipPath id="c"><use href="#h"/></clipPath>
+    <!-- Schnittlinie x+y=22.8 läuft durch die Kerbe zwischen den Bögen (16,6.8); Streifen parallel dazu -->
+    <linearGradient id="r" gradientUnits="userSpaceOnUse" x1="11.4" y1="11.4" x2="24" y2="24">
+      <stop offset=".1667" stop-color="#E40303"/><stop offset=".1667" stop-color="#FF8C00"/>
+      <stop offset=".3333" stop-color="#FF8C00"/><stop offset=".3333" stop-color="#FFED00"/>
+      <stop offset=".5" stop-color="#FFED00"/><stop offset=".5" stop-color="#008026"/>
+      <stop offset=".6667" stop-color="#008026"/><stop offset=".6667" stop-color="#004DFF"/>
+      <stop offset=".8333" stop-color="#004DFF"/><stop offset=".8333" stop-color="#750787"/>
+    </linearGradient>
+  </defs>
+  <use href="#h" fill="url(#r)"/>
+  <polygon points="0,0 16,0 16,6.8 0,22.8" fill="#3B9BF0" clip-path="url(#c)"/>
+</svg>

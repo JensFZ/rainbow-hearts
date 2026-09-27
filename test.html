@@ -1,0 +1,72 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Rainbow Hearts Test</title>
+<!-- Testet content.js ohne installierte Erweiterung. Über einen lokalen Server öffnen, Ergebnis steht unten. -->
+<p id="text">Hallo 💙 Welt 🩵 und 💙️ ❤️</p>
+<p><img id="img" alt="💙" src="data:," srcset="data:, 2x"></p>
+<textarea id="ta">💙</textarea>
+<div id="ce" contenteditable>💙</div>
+<pre id="result">läuft…</pre>
+<script>
+  // Stub der Chrome-APIs, setEnabled() simuliert den Schalter im Popup
+  const listeners = [];
+  const store = { enabled: true };
+  window.chrome = Object.assign(window.chrome || {}, {
+    runtime: { getURL: p => new URL(p, location.href).href },
+    storage: {
+      sync: { get: d => Promise.resolve({ ...d, ...store }) },
+      onChanged: { addListener: f => listeners.push(f) },
+    },
+  });
+  window.ORIG = document.getElementById('text').textContent;
+  window.toggle =v => { store.enabled = v; listeners.forEach(f => f({ enabled: { newValue: v } }, 'sync')); };
+</script>
+<script src="content.js"></script>
+<script>
+  const $ = id => document.getElementById(id);
+  const tick = () => new Promise(r => setTimeout(r, 50));
+
+  (async () => {
+    const later = document.createElement('p');
+    later.id = 'later';
+    later.textContent = 'nachgeladen 💙';
+    document.body.append(later);
+    await tick();
+
+    const checks = {
+      'An: 3 Herzen im Text ersetzt': document.querySelectorAll('#text img').length === 3,
+      'An: kein 💙/🩵 mehr im Text': !/💙|🩵/u.test($('text').textContent),
+      'An: ❤️ bleibt': $('text').textContent.includes('❤️'),
+      'An: Bild-Emoji ersetzt': $('img').src.endsWith('heart.svg') && !$('img').hasAttribute('srcset'),
+      'An: Textarea unverändert': $('ta').value === '💙',
+      'An: contenteditable unverändert': $('ce').textContent === '💙',
+      'An: nachgeladener Inhalt ersetzt': document.querySelectorAll('#later img').length === 1,
+    };
+
+    toggle(false);
+    await tick();
+    const added = document.createElement('p');
+    added.id = 'off';
+    added.textContent = 'aus 💙';
+    document.body.append(added);
+    await tick();
+    Object.assign(checks, {
+      'Aus: Text wiederhergestellt': $('text').textContent === ORIG && !$('text').querySelector('img'),
+      'Aus: Bild-Emoji wiederhergestellt': $('img').getAttribute('src') === 'data:,' && $('img').getAttribute('srcset') === 'data:, 2x',
+      'Aus: neuer Inhalt bleibt blau': $('off').textContent === 'aus 💙',
+    });
+
+    toggle(true);
+    await tick();
+    Object.assign(checks, {
+      'Wieder an: Text ersetzt': document.querySelectorAll('#text img').length === 3,
+      'Wieder an: Bild-Emoji ersetzt': $('img').src.endsWith('heart.svg'),
+      'Wieder an: neuer Inhalt ersetzt': document.querySelectorAll('#off img').length === 1,
+    });
+
+    const failed = Object.values(checks).filter(ok => !ok).length;
+    $('result').textContent =
+      Object.entries(checks).map(([k, ok]) => (ok ? 'PASS ' : 'FAIL ') + k).join('\n') +
+      (failed ? `\n\n${failed} FEHLGESCHLAGEN` : '\n\nALLE OK');
+  })();
+</script>
