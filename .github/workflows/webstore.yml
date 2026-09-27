@@ -38,7 +38,8 @@ jobs:
       - name: Status des Store-Eintrags abfragen
         env:
           TOKEN: ${{ steps.auth.outputs.access_token }}
-        run: curl -sS --fail-with-body -H "Authorization: Bearer $TOKEN" "$ITEM:fetchStatus" | jq .
+        run: |
+          curl -sS --fail-with-body -H "Authorization: Bearer $TOKEN" "$ITEM:fetchStatus" | jq .
 
       - name: Hochladen und zur Prüfung einreichen
         if: github.ref_type == 'tag'
