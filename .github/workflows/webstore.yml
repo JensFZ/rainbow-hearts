@@ -22,7 +22,7 @@ jobs:
       - name: Version aus dem Tag setzen und packen
         run: |
           jq --arg v "${GITHUB_REF_NAME#v}" '.version = $v' manifest.json > m.json && mv m.json manifest.json
-          zip -r extension.zip manifest.json content.js heart.svg popup.html popup.js icons
+          zip -r extension.zip manifest.json content.js heart.svg popup.html popup.js icons _locales
 
       - uses: google-github-actions/auth@v2
         id: auth

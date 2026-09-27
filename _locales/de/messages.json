@@ -1,0 +1,6 @@
+{
+  "extName": { "message": "Rainbow Hearts" },
+  "extDescription": { "message": "Ersetzt blaue Herz-Emoji (💙 🩵) auf Webseiten durch Regenbogenherzen." },
+  "toggleLabel": { "message": "Regenbogenherzen" },
+  "heartAlt": { "message": "Regenbogenherz" }
+}

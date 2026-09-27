@@ -13,6 +13,7 @@
   const store = { enabled: true };
   window.chrome = Object.assign(window.chrome || {}, {
     runtime: { getURL: p => new URL(p, location.href).href },
+    i18n: { getMessage: key => key },
     storage: {
       sync: { get: d => Promise.resolve({ ...d, ...store }) },
       onChanged: { addListener: f => listeners.push(f) },

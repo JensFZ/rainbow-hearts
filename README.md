@@ -37,6 +37,7 @@ Ein Klick auf das Herz-Icon in der Symbolleiste öffnet einen An/Aus-Schalter. E
 | `content.js` | Ersetzt die Herzen auf den Seiten |
 | `heart.svg` | Das eingesetzte Regenbogenherz |
 | `popup.html`, `popup.js` | An/Aus-Schalter |
+| `_locales/` | Texte auf Englisch (Standard) und Deutsch |
 | `icon.svg` | Vorlage für das Icon |
 | `icons/` | Icon als PNG in 16, 32, 48 und 128 px |
 | `render-icons.ps1` | Erzeugt `icons/` aus `icon.svg` |
@@ -72,7 +73,7 @@ Die Version muss bei jedem Tag höher sein als die zuletzt hochgeladene.
 ZIP bauen (PowerShell):
 
 ```bash
-Compress-Archive -Force manifest.json, content.js, heart.svg, popup.html, popup.js, icons extension.zip
+Compress-Archive -Force manifest.json, content.js, heart.svg, popup.html, popup.js, icons, _locales extension.zip
 ```
 
 Im [Developer Dashboard](https://chrome.google.com/webstore/devconsole) „Neuen Artikel hinzufügen“ wählen, `extension.zip` hochladen und die Tabs **Store-Eintrag** (Beschreibung, Screenshots) und **Datenschutz** ausfüllen:

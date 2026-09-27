@@ -12,7 +12,7 @@ const skip = el => !el || el.isContentEditable || el.closest(SKIP);
 function makeHeart(orig) {
   const img = document.createElement('img');
   img.src = SRC;
-  img.alt = 'Regenbogenherz';
+  img.alt = chrome.i18n.getMessage('heartAlt');
   img.dataset.rainbowHeart = orig;
   img.style.cssText = 'display:inline;height:1em;width:auto;vertical-align:-0.125em;margin:0 .05em';
   return img;

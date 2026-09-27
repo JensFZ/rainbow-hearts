@@ -1,0 +1,6 @@
+{
+  "extName": { "message": "Rainbow Hearts" },
+  "extDescription": { "message": "Replaces blue heart emoji (💙 🩵) on websites with rainbow hearts." },
+  "toggleLabel": { "message": "Rainbow hearts" },
+  "heartAlt": { "message": "Rainbow heart" }
+}
