@@ -134,6 +134,10 @@ powershell -ExecutionPolicy Bypass -File .\store\render-store.ps1
 powershell -ExecutionPolicy Bypass -File .\render-icons.ps1
 ```
 
+## Datenschutz
+
+Rainbow Hearts erhebt und überträgt keine Daten, siehe [Datenschutzerklärung](PRIVACY.md).
+
 ## Lizenz
 
 [MIT](LICENSE)
